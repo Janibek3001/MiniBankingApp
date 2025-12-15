@@ -21,6 +21,12 @@ class Transaction {
         this.description = description; // some kinda description
         this.dateTime = LocalDateTime.now();
     }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd  HH:mm:ss");
+        return "[" + dateTime.format(formatter) + "] " + type + ": " + amount + " " + description;
+    }
 }
 
 public class MiniBank {
