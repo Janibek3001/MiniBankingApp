@@ -25,15 +25,15 @@
 
 ## Account
 
-- It will show the balance of the User, When he creates the account, it must show the for which user it has been created the account and what is the balance in this account.
-- Giving the task to Transition class and make the change in the balance. 
-- Show the how much money in this account, and showing the history of Transactions, in one account let say there have been 12 transactions and all transactions will be held in the List in one object.
-- Cannot directly make the payment
+- So in the Account, there will be things such as transaction history, Owner of the account and the balance where you will give the permission to increase and decrease.
+- Account cannot check the validation of the cards or phone numbers.
+
 
 ## Transaction
 
-- So in the transaction, there will be any payment methods. Like transfer for some summ into other card, or into number and so on.
-- Transaction cannot view how much money user has, and cannot make change into this summ.
+- Transaction will have only facts about the transaction.
+- It is such as document or receipt for transaction things.
+- It cannot transfer the money.
 
 ## Exception
 
@@ -43,7 +43,13 @@
 
 ## Bank
 
-- There will be the main function and it will connect everything and will show the menu
+- In the bank, actually we have the access to the user and their accounts
+- So in the bank, there will be only the data that is a User has an account or not
+
+## BankService
+
+- It is the new class that it wil make the all bank services.
+- With services I mean, making the transfers of the money, validations and such things.
 
 # Design
 
