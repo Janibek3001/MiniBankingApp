@@ -37,6 +37,35 @@
 
 ## Exception
 
-- There will be exception like a about the money in minus
+- There will be exc>eption like a about the money in minus
 - Card number wrong
 - phone number wrong
+
+## Bank
+
+- There will be the main function and it will connect everything and will show the menu
+
+# Design
+
+## User
+
+- User will have the options such as `name`, `phone number`, `password`.
+- It has functions such as returning the phone number, for when you login into account it will search by number
+- It has methods such as password and name.
+- For this class I use record with toString in toString it will show only the name and the phone number
+- I will add the find methods that returns the object of the User
+
+## Account
+
+- In the account when you create or login, in the register, user will enter the phone number and password and the balance, constructor will be like this `Account(User user, balance)`
+- The person who just login into their account, they will just provide the phone number and the password, if such a user will not show, it will be the two options, Try again or register.
+- Will be methods such as making transfers, and the finding account for login page, Transactions happens with the help of class of Transfer
+
+## Transaction
+
+- It will be list such as transactions list to be used for lator when we do the transaction.
+- Will be the primitive data such as transfer for used for payments, card for card numbers and phone for phone numbers transfer
+- Will be validation for card number and for phone number
+- In the payment method, We will borrow the information of balance from Account and make the payment.
+- I will create the validation methods for transfer to use it in the transfer for phone number and transfer for the card number, it just shows the will be money enough or not
+- And will be method for making plus for balance
