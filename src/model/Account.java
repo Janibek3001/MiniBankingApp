@@ -6,12 +6,11 @@ import java.util.List;
 public class Account {
     private double balance;
     private final User owner;
-    private final List<Transaction> transactions;
+    private final List<Transaction> transactions = new ArrayList<>();
 
-    Account (User owner, double balance) {
+    public Account (User owner, double balance) {
         this.owner = owner;
         this.balance = balance;
-        this.transactions = new ArrayList<>();
     }
 
     public User getOwner() {
@@ -26,8 +25,8 @@ public class Account {
         balance -= amount;
     }
 
-    public void setTransactions(double amount, TransactionType type) {
-        transactions.add(new Transaction(amount, type));
+    public void setTransactions(Transaction t) {
+        transactions.add(t);
     }
 
     public List<Transaction> getTransactions() {
