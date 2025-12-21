@@ -13,6 +13,10 @@ public class Account {
         this.balance = balance;
     }
 
+    public double getBalance() {
+        return balance;
+    }
+
     public User getOwner() {
         return owner;
     }

@@ -7,7 +7,7 @@ public class Transaction {
     private final LocalDateTime dateTime;
     private final double amount;
 
-    Transaction(double amount, TransactionType type) {
+    public Transaction(double amount, TransactionType type) {
         this.amount = amount;
         this.type = type;
         this.dateTime = LocalDateTime.now();
