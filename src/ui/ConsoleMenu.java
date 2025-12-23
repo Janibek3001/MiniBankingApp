@@ -1,6 +1,6 @@
 package ui;
 
-import core.Bank;
+import model.User;
 import core.BankService;
 import validation.PasswordValidation;
 import java.util.Scanner;
@@ -16,9 +16,9 @@ public class ConsoleMenu {
             panelUI();
             choice = inputInt("Enter your choice: ");
             switch (choice) {
-                case 1 -> {
+                case 1 -> register();
 
-                }
+                case 2 ->
             }
         }
 
@@ -46,10 +46,10 @@ public class ConsoleMenu {
     public static void register() {
         System.out.println("Enter your name: ");
         String name = in.nextLine();
-        System.out.println("Phone number: ");
         int phoneNumber;
 
         while (true) {
+            System.out.println("Phone number: ");
             phoneNumber = inputInt("+998 ");
             if (String.valueOf(Math.abs(phoneNumber)).length() != 9) {
                 System.out.println("The length of phone number must be 9!");
@@ -59,10 +59,9 @@ public class ConsoleMenu {
             }
         }
 
-        System.out.println("Enter the password (a-z, 0-9):");
         String password;
-
         while (true) {
+            System.out.println("Enter the password (a-z, 0-9):");
             password = in.nextLine();
             if (validate.hasDigit(password) && validate.checkLength(password) && validate.hasCharacter(password)) {
                 break;
@@ -74,6 +73,38 @@ public class ConsoleMenu {
         service.register(name, phoneNumber, password);
     }
 
+    public static void login() {
+        int phoneNumber;
+        String password;
 
+        while (true) {
+            System.out.println("Enter the phone number: ");
+            phoneNumber = inputInt("+998 ");
+            if (String.valueOf(Math.abs(phoneNumber)).length() != 9) {
+                System.out.println("The length of phone number must be 9!");
+                System.out.println("Try again!");
+            } else {
+                break;
+            }
+        }
+
+        while (true) {
+            System.out.println("Enter the password (a-z, 0-9):");
+            password = in.nextLine();
+            if (validate.hasDigit(password) && validate.checkLength(password) && validate.hasCharacter(password)) {
+                break;
+            } else {
+                validate.errorShow(password);
+            }
+        }
+
+        User user = service.login(phoneNumber, password);
+
+
+    }
+}
+
+
+class MainMenu {
 
 }
