@@ -79,7 +79,7 @@ public class ConsoleMenu {
         }
 
         service.register(name, phoneNumber, password);
-        System.out.println("Account created!");
+        System.out.println("User created!");
         System.out.println("Enter the balance to create an account!");
         System.out.print("Balance: ");
         double balance = in.nextDouble();
@@ -132,8 +132,8 @@ class MainMenu {
             userUI(user);
             int choice = ConsoleMenu.inputInt("Enter your choice: ");
             switch (choice) {
-                case 1 -> withDraw(user);
-                case 2 -> deposit(user);
+                case 1 -> deposit(user);
+                case 2 -> withDraw(user);
                 case 0 -> {
                     return;
                 }
