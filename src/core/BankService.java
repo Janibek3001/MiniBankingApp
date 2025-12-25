@@ -14,6 +14,10 @@ public class BankService {
         return bank.findAccount(user) != null; // if User has account, it will return true
     }
 
+    public void createAccount(User user, double balance) {
+        bank.addAccount(new Account(user, balance));
+    }
+
     public User login(int phoneNumber, String password) {
         User user = bank.findUser(phoneNumber);
         return (user != null && user.checkPassword(password)) ? user : null;
@@ -28,7 +32,11 @@ public class BankService {
     public void withdraw(User user, double amount) {
         Account acc = bank.findAccount(user);
         if (acc.getBalance() < amount)
-            new ClassNotFoundException();
+            try {
+                throw new NotEnoughFoundException();
+            } catch (NotEnoughFoundException e) {
+                throw new RuntimeException(e);
+            }
         acc.decreaseAmount(amount);
         acc.setTransactions(new Transaction(amount, TransactionType.WITHDRAW));
     }

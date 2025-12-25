@@ -1,5 +1,7 @@
 package validation;
 
+import java.util.regex.Pattern;
+
 public class PasswordValidation {
     public boolean hasDigit(String password) {
         int count = 0;
@@ -13,11 +15,10 @@ public class PasswordValidation {
     }
 
     public boolean hasCharacter(String password) {
-        for (int i = 0; i < password.length(); i++) {
-            char c = password.charAt(i);
-            return Character.isAlphabetic(c);
-        }
-        return false;
+        boolean hasUpperCase = Pattern.compile("[A-Z]").matcher(password).find();
+        boolean hasLowerCase = Pattern.compile("[a-z]").matcher(password).find();
+
+        return hasUpperCase || hasLowerCase;
     }
 
     public boolean checkLength(String password) {

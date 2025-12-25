@@ -1,5 +1,6 @@
 package ui;
 
+import core.Bank;
 import model.User;
 import core.BankService;
 import validation.PasswordValidation;
@@ -18,7 +19,14 @@ public class ConsoleMenu {
             switch (choice) {
                 case 1 -> register();
 
-                case 2 ->
+                case 2 -> login();
+                
+                case 0 -> {
+                    return;
+                }
+                default -> {
+                    System.out.println("Invalid choice. Try again!");
+                }
             }
         }
 
@@ -71,6 +79,12 @@ public class ConsoleMenu {
         }
 
         service.register(name, phoneNumber, password);
+        System.out.println("Account created!");
+        System.out.println("Enter the balance to create an account!");
+        System.out.print("Balance: ");
+        double balance = in.nextDouble();
+        in.nextLine();
+        service.createAccount(new User(name, phoneNumber, password), balance);
     }
 
     public static void login() {
@@ -100,11 +114,53 @@ public class ConsoleMenu {
 
         User user = service.login(phoneNumber, password);
 
-
+        if (user == null) {
+            return;
+        } else {
+            MainMenu.userMenu(user);
+        }
     }
 }
 
 
 class MainMenu {
+    private static final BankService service = new BankService();
+    private static final Scanner in = new Scanner(System.in);
 
+    public static void userMenu(User user) {
+        while (true) {
+            userUI(user);
+            int choice = ConsoleMenu.inputInt("Enter your choice: ");
+            switch (choice) {
+                case 1 -> withDraw(user);
+                case 2 -> deposit(user);
+                case 0 -> {
+                    return;
+                }
+                default -> {
+                    System.out.println("Invalid choice. Try again!");
+                }
+            }
+        }
+    }
+
+    private static void userUI(User user) {
+        System.out.printf("====Welcome %s====\n", user.name());
+        System.out.println("1. Deposit");
+        System.out.println("2. Withdraw");
+        System.out.println("0. Exit");
+    }
+    public static void withDraw(User user) {
+        System.out.print("Enter the amount: ");
+        double amount = in.nextDouble();
+        in.nextLine();
+        service.withdraw(user, amount);
+    }
+    
+    public static void deposit(User user) {
+        System.out.print("Enter the amount: ");
+        double amount = in.nextDouble();
+        in.nextLine();
+        service.deposit(user,amount);
+    }
 }
