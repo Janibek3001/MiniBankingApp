@@ -29,14 +29,10 @@ public class BankService {
         acc.setTransactions(new Transaction(amount, TransactionType.DEPOSIT));
     }
 
-    public void withdraw(User user, double amount) {
+    public void withdraw(User user, double amount) throws NotEnoughFoundException{
         Account acc = bank.findAccount(user);
         if (acc.getBalance() < amount)
-            try {
-                throw new NotEnoughFoundException();
-            } catch (NotEnoughFoundException e) {
-                throw new RuntimeException(e);
-            }
+            throw new NotEnoughFoundException("Not enough Money");
         acc.decreaseAmount(amount);
         acc.setTransactions(new Transaction(amount, TransactionType.WITHDRAW));
     }

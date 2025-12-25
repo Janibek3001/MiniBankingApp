@@ -1,6 +1,7 @@
 package ui;
 
 import core.Bank;
+import exception.NotEnoughFoundException;
 import model.User;
 import core.BankService;
 import validation.PasswordValidation;
@@ -10,7 +11,7 @@ public class ConsoleMenu {
     private static final BankService service = new BankService();
     static PasswordValidation validate = new PasswordValidation();
     static Scanner in = new Scanner(System.in);
-    public void start() {
+    public void start() throws NotEnoughFoundException {
         int choice;
 
         while (true) {
@@ -87,7 +88,7 @@ public class ConsoleMenu {
         service.createAccount(new User(name, phoneNumber, password), balance);
     }
 
-    public static void login() {
+    public static void login() throws NotEnoughFoundException {
         int phoneNumber;
         String password;
 
@@ -117,23 +118,22 @@ public class ConsoleMenu {
         if (user == null) {
             return;
         } else {
-            MainMenu.userMenu(user);
+            MainMenu.userMenu(user, service);
         }
     }
 }
 
 
 class MainMenu {
-    private static final BankService service = new BankService();
     private static final Scanner in = new Scanner(System.in);
 
-    public static void userMenu(User user) {
+    public static void userMenu(User user, BankService service) throws NotEnoughFoundException {
         while (true) {
             userUI(user);
             int choice = ConsoleMenu.inputInt("Enter your choice: ");
             switch (choice) {
-                case 1 -> deposit(user);
-                case 2 -> withDraw(user);
+                case 1 -> deposit(user, service);
+                case 2 -> withDraw(user, service);
                 case 0 -> {
                     return;
                 }
@@ -150,14 +150,19 @@ class MainMenu {
         System.out.println("2. Withdraw");
         System.out.println("0. Exit");
     }
-    public static void withDraw(User user) {
+    public static void withDraw(User user, BankService service) throws NotEnoughFoundException {
         System.out.print("Enter the amount: ");
         double amount = in.nextDouble();
         in.nextLine();
-        service.withdraw(user, amount);
+        try {
+            service.withdraw(user, amount);
+            System.out.println("Withdraw successfully");
+        } catch (NotEnoughFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
     
-    public static void deposit(User user) {
+    public static void deposit(User user, BankService service) {
         System.out.print("Enter the amount: ");
         double amount = in.nextDouble();
         in.nextLine();
