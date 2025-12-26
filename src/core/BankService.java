@@ -23,6 +23,11 @@ public class BankService {
         return (user != null && user.checkPassword(password)) ? user : null;
     }
 
+    public void showBalance(User user) {
+        Account userBalance = bank.findAccount(user);
+        System.out.println("Balance: " + userBalance.getBalance());
+    }
+
     public void deposit(User user, double amount) {
         Account acc = bank.findAccount(user);
         acc.increaseAmount(amount);
