@@ -12,6 +12,11 @@ public class BankService {
         return user;
     }
 
+    public Account getAccount(User user) {
+        Account acc = bank.findAccount(user);
+        return acc;
+    }
+
     public boolean hasNumber(int phoneNumber) {
         return bank.findUser(phoneNumber) != null;
     }

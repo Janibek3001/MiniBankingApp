@@ -2,6 +2,7 @@ package ui;
 
 import core.Bank;
 import exception.NotEnoughFoundException;
+import model.Transaction;
 import model.User;
 import core.BankService;
 import validation.PasswordValidation;
@@ -151,6 +152,7 @@ class MainMenu {
                 }
                 case 2 -> deposit(user, service, in);
                 case 3 -> withDraw(user, service, in);
+                case 4 -> transactionHistory(user, service);
                 case 0 -> {
                     return;
                 }
@@ -166,8 +168,16 @@ class MainMenu {
         System.out.println("1. Balance");
         System.out.println("2. Deposit");
         System.out.println("3. Withdraw");
+        System.out.println("4. History");
         System.out.println("0. Exit");
     }
+
+    public static void transactionHistory(User user, BankService service) {
+        for (Transaction t : service.getAccount(user).getTransactions()) {
+            System.out.println(t);
+        }
+    }
+
     public static void withDraw(User user, BankService service, Scanner in) throws NotEnoughFoundException {
         System.out.println();
         System.out.print("Enter the amount: ");
