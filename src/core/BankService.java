@@ -6,8 +6,14 @@ import exception.NotEnoughFoundException;
 public class BankService {
     private final Bank bank = new Bank();
 
-    public void register(String name, int phoneNumber, String password) {
-        bank.addUser(new User(name, phoneNumber, password));
+    public User register(String name, int phoneNumber, String password) {
+        User user = new User(name, phoneNumber, password);
+        bank.addUser(user);
+        return user;
+    }
+
+    public boolean hasNumber(int phoneNumber) {
+        return bank.findUser(phoneNumber) != null;
     }
 
     public boolean hasAccount(User user) {

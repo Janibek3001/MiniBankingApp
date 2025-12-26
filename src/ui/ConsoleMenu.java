@@ -62,6 +62,13 @@ public class ConsoleMenu {
         while (true) {
             System.out.println("Phone number: ");
             phoneNumber = inputInt("+998 ");
+
+            if (service.hasNumber(phoneNumber)) {
+                System.out.println("User with this account already exist");
+                System.out.println();
+                return;
+            }
+
             if (String.valueOf(Math.abs(phoneNumber)).length() != 9) {
                 System.out.println("The length of phone number must be 9!");
                 System.out.println("Try again!");
@@ -81,13 +88,13 @@ public class ConsoleMenu {
             }
         }
 
-        service.register(name, phoneNumber, password);
+        User newUser = service.register(name, phoneNumber, password);
         System.out.println("User created!");
         System.out.println("Enter the balance to create an account!");
         System.out.print("Balance: ");
         double balance = in.nextDouble();
         in.nextLine();
-        service.createAccount(new User(name, phoneNumber, password), balance);
+        service.createAccount(newUser, balance);
         System.out.println("Account created!");
         System.out.println();
     }
@@ -125,16 +132,14 @@ public class ConsoleMenu {
             System.out.println();
             return;
         } else {
-            MainMenu.userMenu(user, service);
+            MainMenu.userMenu(user, service, in);
         }
     }
 }
 
 
 class MainMenu {
-    private static final Scanner in = new Scanner(System.in);
-
-    public static void userMenu(User user, BankService service) throws NotEnoughFoundException {
+    public static void userMenu(User user, BankService service, Scanner in) throws NotEnoughFoundException {
         System.out.println();
         while (true) {
             userUI(user);
@@ -144,8 +149,8 @@ class MainMenu {
                     service.showBalance(user);
                     System.out.println();
                 }
-                case 2 -> deposit(user, service);
-                case 3 -> withDraw(user, service);
+                case 2 -> deposit(user, service, in);
+                case 3 -> withDraw(user, service, in);
                 case 0 -> {
                     return;
                 }
@@ -163,7 +168,7 @@ class MainMenu {
         System.out.println("3. Withdraw");
         System.out.println("0. Exit");
     }
-    public static void withDraw(User user, BankService service) throws NotEnoughFoundException {
+    public static void withDraw(User user, BankService service, Scanner in) throws NotEnoughFoundException {
         System.out.println();
         System.out.print("Enter the amount: ");
         double amount = in.nextDouble();
@@ -171,17 +176,20 @@ class MainMenu {
         try {
             service.withdraw(user, amount);
             System.out.println("Withdraw successfully");
+            System.out.println();
         } catch (NotEnoughFoundException e) {
             System.out.println("Error: " + e.getMessage());
             System.out.println();
         }
     }
     
-    public static void deposit(User user, BankService service) {
+    public static void deposit(User user, BankService service, Scanner in) {
         System.out.println();
         System.out.print("Enter the amount: ");
         double amount = in.nextDouble();
         in.nextLine();
         service.deposit(user,amount);
+        System.out.println("Deposit successfully");
+        System.out.println();
     }
 }
