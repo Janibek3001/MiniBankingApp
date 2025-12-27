@@ -54,6 +54,19 @@ public class ConsoleMenu {
         return number;
     }
 
+    public static double inputDouble(String message) {
+        System.out.print(message);
+        double number;
+        while (!in.hasNextDouble()) {
+            System.out.println("Input a number!");
+            in.next();
+        }
+
+        number = in.nextDouble();
+        in.nextLine();
+        return number;
+    }
+
     public static void register() {
         System.out.println();
         System.out.println("Enter your name: ");
@@ -67,7 +80,7 @@ public class ConsoleMenu {
             if (service.hasNumber(phoneNumber)) {
                 System.out.println("User with this account already exist");
                 System.out.println();
-                return;
+                continue;
             }
 
             if (String.valueOf(Math.abs(phoneNumber)).length() != 9) {
@@ -92,8 +105,7 @@ public class ConsoleMenu {
         User newUser = service.register(name, phoneNumber, password);
         System.out.println("User created!");
         System.out.println("Enter the balance to create an account!");
-        System.out.print("Balance: ");
-        double balance = in.nextDouble();
+        double balance = inputDouble("Balance: ");
         in.nextLine();
         service.createAccount(newUser, balance);
         System.out.println("Account created!");
@@ -180,8 +192,7 @@ class MainMenu {
 
     public static void withDraw(User user, BankService service, Scanner in) throws NotEnoughFoundException {
         System.out.println();
-        System.out.print("Enter the amount: ");
-        double amount = in.nextDouble();
+        double amount = ConsoleMenu.inputDouble("Enter the amount: ");
         in.nextLine();
         try {
             service.withdraw(user, amount);
@@ -195,8 +206,7 @@ class MainMenu {
     
     public static void deposit(User user, BankService service, Scanner in) {
         System.out.println();
-        System.out.print("Enter the amount: ");
-        double amount = in.nextDouble();
+        double amount = ConsoleMenu.inputDouble("Enter the amount: ");
         in.nextLine();
         service.deposit(user,amount);
         System.out.println("Deposit successfully");

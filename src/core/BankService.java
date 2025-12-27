@@ -36,7 +36,7 @@ public class BankService {
 
     public void showBalance(User user) {
         Account userBalance = bank.findAccount(user);
-        System.out.println("Balance: " + userBalance.getBalance());
+        System.out.printf("Balance: $%.2f%n", userBalance.getBalance());
     }
 
     public void deposit(User user, double amount) {
