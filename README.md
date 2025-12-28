@@ -1,13 +1,5 @@
 # Mini Banking App
 
-## Plan
-
-- So the plan is writing a console based Mini Banking App.
-- To write it, I thought about the actually a bank App.
-- In bank App, there are banch of operation will be, but in my app, it is the mini version of the app,
-- where it is likely to be a miniversion of the app
-
-
 ## Actual how my app works?
 
 
@@ -18,15 +10,16 @@
 
 - In the User section, user can only register or login and exit the account.
 - What User class cannot do?
-- That is the main question actually.
+  - That is the main question actually.
 - When you register the account, you just enter your age, name, and phone number.
-- You cannot add the balance of the card! The account will be registered by the phone number and password.
-- You cannot make the transitions and change the balance
+  - You cannot add the balance of the card! The account will be registered by the phone number and password.
+  - You cannot make the transitions and change the balance
 
 ## Account
 
-- So in the Account, there will be things such as transaction history, Owner of the account and the balance where you will give the permission to increase and decrease.
-- Account cannot check the validation of the cards or phone numbers.
+- Account can save the Users and Accounts,
+- They can also save the balance and make changes in the balance
+- In the Account, you can also see the Transactions
 
 
 ## Transaction
@@ -37,9 +30,8 @@
 
 ## Exception
 
-- There will be exc>eption like a about the money in minus
-- Card number wrong
-- phone number wrong
+- There will be exception like a about the money in minus
+- All other errors, like wrong number or wrong password will be made by the Validation class
 
 ## Bank
 
@@ -48,11 +40,31 @@
 
 ## BankService
 
-- It is the new class that it wil make the all bank services.
-- With services I mean, making the transfers of the money, validations and such things.
+- In the service, it is core, and all of the stuffs like, make deposit or withdraw made in there
+- There will be methods like adding accounts and adding users into it
 
 # Design
-
+```
+├── MiniBankingApp.iml
+├── README.md
+└── src
+    ├── app
+    │     └── Main.java
+    ├── core
+    │     ├── Bank.java
+    │     └── BankService.java
+    ├── exception
+    │        └── NotEnoughFoundException.java
+    ├── model
+    │       ├── Account.java
+    │       ├── Transaction.java
+    │       ├── TransactionType.java
+    │       └── User.java
+    ├── ui
+    │    └── ConsoleMenu.java
+    └── validation
+        └── PasswordValidation.java
+```
 ## User
 
 - User will have the options such as `name`, `phone number`, `password`.
